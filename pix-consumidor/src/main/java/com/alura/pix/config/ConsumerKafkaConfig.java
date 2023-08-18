@@ -58,6 +58,15 @@ public class ConsumerKafkaConfig {
         props.put(
                 JsonDeserializer.TRUSTED_PACKAGES,
                 "*");
+        // quantidade de mensagens captadas por vez
+        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 100);
+        // com "earliest" captura todas as mensagens, com "latest" apenas as obtidas após subir a aplicação
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        // não cria novas topico ao subir a aplicação
+        props.put(ConsumerConfig.ALLOW_AUTO_CREATE_TOPICS_CONFIG, false);
+        // desabilita notificação de mensagens processadas
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
+
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
